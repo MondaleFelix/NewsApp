@@ -98,8 +98,10 @@ extension NewsArticlesVC : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ArticleCell.reuseID, for: indexPath) as! ArticleCell
+        let article = articles[indexPath.row]
         
-        cell.articleTitleLabel.text = articles[indexPath.row].title
+        cell.articleTitleLabel.text = article.title
+        cell.downloadImage(from: article.urlToImage)
         return cell
     }
     

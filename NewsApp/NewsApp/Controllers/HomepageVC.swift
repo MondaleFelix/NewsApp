@@ -15,6 +15,7 @@ class HomepageVC: UIViewController {
     }
 
     let categoryList:[String] = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
+    
     var filteredCategory: [String] = []
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, String>!
@@ -90,6 +91,7 @@ class HomepageVC: UIViewController {
 extension HomepageVC: UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         let selectedCategory = self.categoryList[indexPath.row]
         
         let newsArticlesVC = NewsArticlesVC()
