@@ -31,9 +31,11 @@ class ArticleCell: UITableViewCell {
 
         guard let urlString = urlString else { return }
 
+
         let cache = NetworkManager.shared.cache
         let cacheKey = NSString(string: urlString)
-
+        
+        // Sets the Cell image if found in cache
         if let image = cache.object(forKey: cacheKey) {
             self.articleImageView?.image = image
             return
@@ -50,10 +52,12 @@ class ArticleCell: UITableViewCell {
             if let _ = error { return }
 
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { return }
+            
             guard let data = data else { return }
 
             guard let image = UIImage(data: data) else { return }
 
+            // Adds the image to cache
             cache.setObject(image, forKey: cacheKey)
             DispatchQueue.main.async {
                 self.articleImageView?.image = image
@@ -70,6 +74,8 @@ class ArticleCell: UITableViewCell {
         articleTitleLabel.textColor = .black
         articleTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        articleTitleLabel.font = UIFont.preferredFont(forTextStyle: .body)
+
         articleTitleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         articleTitleLabel.numberOfLines = 0
         articleTitleLabel.adjustsFontSizeToFitWidth = true
@@ -92,13 +98,12 @@ class ArticleCell: UITableViewCell {
         addSubview(articleImageView)
         articleImageView.translatesAutoresizingMaskIntoConstraints = false
         articleImageView.contentMode = .scaleAspectFill
-        articleImageView.layer.cornerRadius = 100
-        
+        articleImageView.layer.cornerRadius = 10
+        articleImageView.clipsToBounds = true
         NSLayoutConstraint.activate([
             articleImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             articleImageView.leadingAnchor.constraint(equalTo: articleTitleLabel.trailingAnchor),
             articleImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-
             articleImageView.heightAnchor.constraint(equalToConstant: 80),
 
         ])

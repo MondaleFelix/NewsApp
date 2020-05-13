@@ -1,6 +1,6 @@
-# News App
-![Sideline image](https://cdn.mos.cms.futurecdn.net/3YfcDsLfZVsfVZyZDc7d53-650-80.jpg.webp)
-(Place holder image)
+# News App 📰
+![Sideline image](https://imgur.com/PzrkO5G)
+
 
 ### Description:
 Native iOS application that displays recent news retrieved from the [News API](https://devcenter.heroku.com/articles/git). Users are able to search for category and view an article within the given category. 
