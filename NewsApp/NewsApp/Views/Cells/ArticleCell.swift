@@ -18,6 +18,7 @@ class ArticleCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style:style, reuseIdentifier: reuseIdentifier)
         configureTitleLabel()
+//        configureImageView()
     }
     
     required init?(coder: NSCoder) {
@@ -30,22 +31,37 @@ class ArticleCell: UITableViewCell {
         addSubview(articleTitleLabel)
         articleTitleLabel.textColor = .black
         articleTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        articleTitleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         articleTitleLabel.numberOfLines = 0
-        articleTitleLabel.lineBreakMode = .byWordWrapping
-        articleTitleLabel.sizeToFit()
-        articleTitleLabel.textAlignment = .center
+        articleTitleLabel.adjustsFontSizeToFitWidth = true
         
         NSLayoutConstraint.activate([
         
-            articleTitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            articleTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            articleTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -100),
-            articleTitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
+            articleTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            articleTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            articleTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+
+            articleTitleLabel.heightAnchor.constraint(equalToConstant: 80),
+            
         ])
     }
     
-    
-    private func configureImageView(){
-        
-    }
+//
+//    private func configureImageView(){
+//        articleImageView = UIImageView()
+//        guard let articleImageView = articleImageView else { return }
+//        addSubview(articleImageView)
+//        articleImageView.translatesAutoresizingMaskIntoConstraints = false
+//        articleImageView.image = UIImage(named: "placeholder")
+//
+//        NSLayoutConstraint.activate([
+//            articleImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+//            articleImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+//            articleImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+//
+//            articleImageView.heightAnchor.constraint(equalToConstant: 25),
+//
+//        ])
+//    }
 }

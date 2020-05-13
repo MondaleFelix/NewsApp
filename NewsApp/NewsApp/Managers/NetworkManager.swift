@@ -13,9 +13,11 @@ class NetworkManager {
     // Creates singleton
     static let shared = NetworkManager()
     private init(){}
+    
+
     let cache = NSCache<NSString, UIImage>()
 
-        
+    
     let baseURL = "https://newsapi.org/v2/top-headlines?country=us&apiKey=581b81ac72764f0b9375f1ce29dea721"
     
     
