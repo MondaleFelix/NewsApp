@@ -1,5 +1,5 @@
 # News App 📰
-[Imgur](https://i.imgur.com/PzrkO5G.jpg)
+![Sideline image](https://i.imgur.com/PzrkO5G.jpg)
 
 ### Description:
 Native iOS application that displays recent news retrieved from the [News API](https://devcenter.heroku.com/articles/git). Users are able to search for category and view an article within the given category. 
