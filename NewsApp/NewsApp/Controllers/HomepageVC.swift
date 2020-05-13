@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomepageVC.swift
 //  NewsApp
 //
 //  Created by Mondale on 5/12/20.
@@ -8,13 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class HomepageVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        view.backgroundColor = .red
     }
-
-
+    
 }
-
