@@ -13,7 +13,7 @@ class ArticleCell: UITableViewCell {
     static let reuseID = "ArticleCell"
     
     var articleTitleLabel = UILabel()
-//    var articleImageView: UIImageView?
+    var articleImageView: UIImageView?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style:style, reuseIdentifier: reuseIdentifier)
@@ -42,5 +42,10 @@ class ArticleCell: UITableViewCell {
             articleTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -100),
             articleTitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
         ])
+    }
+    
+    
+    private func configureImageView(){
+        
     }
 }

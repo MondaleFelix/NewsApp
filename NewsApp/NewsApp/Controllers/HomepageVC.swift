@@ -14,7 +14,8 @@ class HomepageVC: UIViewController {
         case main
     }
 
-    let categoryList = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
+    let categoryList:[String] = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
+    var filteredCategory: [String] = []
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, String>!
     
@@ -24,7 +25,8 @@ class HomepageVC: UIViewController {
         configureViewController()
         configureCollectionView()
         configureDataSource()
-        updateData()
+        updateData(on: categoryList)
+        configureSearchController()
     }
     
 
@@ -44,7 +46,7 @@ class HomepageVC: UIViewController {
 
     
     // Helper function that creates a Two Column Flowlayout
-    func createTwoColumnFlowLayout() -> UICollectionViewFlowLayout{
+    private func createTwoColumnFlowLayout() -> UICollectionViewFlowLayout{
         let width = view.bounds.width
         let padding: CGFloat = 24
         let minimumItemSpacing: CGFloat = 20
@@ -67,13 +69,22 @@ class HomepageVC: UIViewController {
     }
     
     
-    func updateData(){
+    func updateData(on followers: [String]){
         var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(categoryList)
+        snapshot.appendItems(followers)
         self.dataSource.apply(snapshot, animatingDifferences: true)
         
     }
+    
+    private func configureSearchController() {
+        let searchController = UISearchController()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Search for a category"
+        navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
+    }
+    
 }
 
 extension HomepageVC: UICollectionViewDelegate{
@@ -84,5 +95,19 @@ extension HomepageVC: UICollectionViewDelegate{
         let newsArticlesVC = NewsArticlesVC()
         newsArticlesVC.selectedCategory = selectedCategory
         self.navigationController?.pushViewController(newsArticlesVC, animated: true)
+    }
+}
+
+extension HomepageVC: UISearchResultsUpdating, UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let filter = searchController.searchBar.text, !filter.isEmpty else { return }
+        print(filter)
+        filteredCategory = categoryList.filter { $0.lowercased().contains(filter.lowercased()) }
+        print(filteredCategory)
+        updateData(on: filteredCategory)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        updateData(on: categoryList)
     }
 }
