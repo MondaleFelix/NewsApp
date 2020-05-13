@@ -12,6 +12,7 @@ class NewsArticlesVC: UIViewController {
 
     var articles: [Article] = []
     var selectedCategory: String = ""
+    var page = 1
     let tableView = UITableView()
     
     override func viewDidLoad() {
@@ -46,17 +47,18 @@ class NewsArticlesVC: UIViewController {
 
     
     func getNewsArticles(){
-        NetworkManager.shared.getArticles(for: selectedCategory, page: 1) { [weak self] (result) in
+        NetworkManager.shared.getArticles(for: selectedCategory, page: page) { [weak self] (result) in
             
             guard let self = self else { return }
             
             switch result {
             case .success(let articles):
                 self.articles.append(contentsOf: articles)
+                self.page += 1
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
-
+                
             case .failure(let error):
                 print(error.rawValue)
                 let alert = UIAlertController(title: "Error", message: error.rawValue, preferredStyle: .alert)
@@ -76,9 +78,19 @@ extension NewsArticlesVC : UITableViewDelegate {
         newsDetailPage.url = newsUrl
         navigationController?.pushViewController(newsDetailPage, animated: true)
     }
+    
+
 }
 
 extension NewsArticlesVC : UITableViewDataSource {
+    
+    // Handles pagination
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.section == tableView.numberOfSections - 1 && indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+            
+            self.getNewsArticles()
+        }
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         articles.count

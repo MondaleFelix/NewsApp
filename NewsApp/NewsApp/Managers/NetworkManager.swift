@@ -20,7 +20,7 @@ class NetworkManager {
     
     func getArticles(for category: String, page:Int, completed: @escaping(Result<[Article], ErrorMessage>) -> Void){
         
-        let endpoint = baseURL + "&category=\(category)"
+        let endpoint = baseURL + "&category=\(category)&page=\(page)"
         
         // Returns if URL is invalid
         guard let url = URL(string: endpoint) else {
